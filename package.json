@@ -110,6 +110,7 @@
     "@types/vscode": "^1",
     "@typescript-eslint/eslint-plugin": "^4",
     "@typescript-eslint/parser": "^4",
+    "@vscode/test-electron": "^2",
     "eslint": "^7",
     "eslint-config-prettier": "^6",
     "eslint-config-xo": "^0.33",
@@ -123,7 +124,6 @@
     "semver": "^7.3.5",
     "typescript": "^4",
     "vsce": "^2.7.0",
-    "vscode-test": "^1",
     "vscode-test-utils": "^1"
   },
   "scripts": {
