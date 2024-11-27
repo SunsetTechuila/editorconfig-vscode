@@ -1,5 +1,12 @@
 import * as editorconfig from 'editorconfig'
-import { TextDocument, TextEditorOptions, Uri, window, workspace } from 'vscode'
+import {
+	TextDocument,
+	TextEditorOptions,
+	Uri,
+	FileType,
+	window,
+	workspace,
+} from 'vscode'
 
 /**
  * Resolves `TextEditorOptions` for a `TextDocument`, combining the editor's
@@ -202,4 +209,24 @@ export function toEditorConfig(options: TextEditorOptions) {
 	function resolveTabSize(tabSize: number | string) {
 		return tabSize === 'auto' ? 4 : parseInt(String(tabSize), 10)
 	}
+}
+
+/**
+ * Get the URI of the .editorconfig file in the given folder
+ */
+export async function getEditorConfigUri(folderUri: Uri) {
+	const editorConfigUri = Uri.parse(`${folderUri.toString()}/.editorconfig`)
+
+	try {
+		const stats = await workspace.fs.stat(editorConfigUri)
+		if (stats.type === FileType.File) {
+			return editorConfigUri
+		}
+	} catch (err) {
+		if (err && err.name !== 'EntryNotFound (FileSystemError)') {
+			throw err
+		}
+	}
+
+	return
 }

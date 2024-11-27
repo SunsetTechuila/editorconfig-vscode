@@ -2,7 +2,8 @@ import { readFile as _readFile } from 'fs'
 import { EOL } from 'os'
 import { resolve } from 'path'
 import { promisify } from 'util'
-import { FileType, Uri, window, workspace } from 'vscode'
+import { Uri, window, workspace } from 'vscode'
+import { getEditorConfigUri } from '../api'
 
 const readFile = promisify(_readFile)
 
@@ -19,26 +20,20 @@ export async function generateEditorConfig(uri: Uri) {
 		return
 	}
 
-	const editorConfigUri = Uri.parse(`${currentUri.toString()}/.editorconfig`)
-
 	try {
-		const stats = await workspace.fs.stat(editorConfigUri)
-		if (stats.type === FileType.File) {
+		if (await getEditorConfigUri(currentUri)) {
 			window.showErrorMessage(
 				'An .editorconfig file already exists in this workspace.',
 			)
 			return
 		}
-	} catch (err) {
-		if (err) {
-			if (err.name === 'EntryNotFound (FileSystemError)') {
-				writeFile()
-			} else {
-				window.showErrorMessage(err.message)
-			}
-			return
-		}
+	} catch (error) {
+		window.showErrorMessage(error.message)
+		return
 	}
+
+	const editorConfigUri = Uri.parse(`${currentUri.toString()}/.editorconfig`)
+	writeFile()
 
 	async function writeFile() {
 		const ec = workspace.getConfiguration('editorconfig')
