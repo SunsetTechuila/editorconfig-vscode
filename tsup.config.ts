@@ -32,19 +32,19 @@ const testConfig = {
 	target: 'node18',
 	platform: 'node',
 	onSuccess: copyFixtures,
-	outDir: 'out/desktop/test',
+	outDir: 'out/test',
 } satisfies Options
 
 export default defineConfig([desktopConfig, webConfig, testConfig])
 
 async function copyFixtures() {
 	await Promise.all([
-		fs.cp('./src/test/suite/fixtures', './out/desktop/test/suite/fixtures', {
+		fs.cp('./src/test/suite/fixtures', './out/test/suite/fixtures', {
 			recursive: true,
 		}),
 		fs.cp(
 			'./src/test/untitled-suite/fixtures',
-			'./out/desktop/test/untitled-suite/fixtures',
+			'./out/test/untitled-suite/fixtures',
 			{
 				recursive: true,
 			},

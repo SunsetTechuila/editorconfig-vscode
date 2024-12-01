@@ -13,7 +13,7 @@
     "target": "ES2019",
     "noEmit": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
-  "exclude": ["node_modules", "out", ".vscode-test"]
+  "exclude": ["node_modules", "out", ".vscode-test", ".vscode-test-web"]
 }

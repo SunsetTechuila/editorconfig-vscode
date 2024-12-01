@@ -2,6 +2,7 @@
 out
 node_modules
 .vscode-test/
+.vscode-test-web/
 *.vsix
 
 # additional
@@ -9,6 +10,7 @@ node_modules
 Thumbs.db
 *.log
 .vscode-test
+.vscode-test-web
 src/test/suite/fixtures/end_of_line/*/test
 src/test/suite/fixtures/insert_final_newline/*/test
 src/test/suite/fixtures/trim_trailing_whitespace/*/test
